@@ -12,6 +12,7 @@ const app = express(); // create an express instance
 
 // Include routes
 const usersRouter = require('./routes/users');
+const postsRouter = require('./routes/posts');
 
 //-----------------------Config-----------------------//
 //// Database
@@ -36,6 +37,7 @@ app.get('/', (req, res) => {
 
 // Use routes
 app.use(usersRouter);
+app.use(postsRouter);
 
 //-----------------------Start server-----------------------//
 

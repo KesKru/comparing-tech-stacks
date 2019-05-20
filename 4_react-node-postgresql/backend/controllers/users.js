@@ -2,7 +2,7 @@
 const passport = require('passport'); // parsing incoming express
 const path = require('path');
 //-----------------------Models-----------------------//
-const User = require('../models/User');
+const User = require('../models//index').User;
 // User.sync();
 
 //-----------------------Controlers-----------------------//

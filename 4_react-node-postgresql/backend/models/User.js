@@ -1,35 +1,33 @@
-const Sequelize = require('sequelize');
-const db = require('../config/databaseConfig');
+'use strict';
 const bcrypt = require('bcrypt');
+const Post = require('../models/Post');
 
-const User = db.define('Users', {
-  name: {
-    type: Sequelize.STRING
-  },
-  email: {
-    type: Sequelize.STRING
-  },
-  password: {
-    type: Sequelize.STRING
-  }
-});
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
+    name: {
+      type: DataTypes.STRING
+    },
+    email: {
+      type: DataTypes.STRING
+    },
+    password: {
+      type: DataTypes.STRING
+    }
+  });
 
-User.prototype.hashPassword = function() {
-  return bcrypt.hash(this.password, 10);
-  // .then(function(hash) {
-  //     // Store hash in your password DB.
-  // });
+  User.prototype.hashPassword = function() {
+    return bcrypt.hash(this.password, 10);
+    // .then(function(hash) {
+    //     // Store hash in your password DB.
+    // });
+  };
+
+  User.prototype.comparePassword = function(passwordToCheck) {
+    return bcrypt.compare(passwordToCheck, this.password);
+    // .then(function(res) {
+    //   // res == true
+    // });
+  };
+
+  return User;
 };
-
-User.prototype.comparePassword = function(passwordToCheck) {
-  return bcrypt.compare(passwordToCheck, this.password);
-  // .then(function(res) {
-  //   // res == true
-  // });
-};
-
-// User.sync({ force: true }).then(() => {
-//   console.log(`Database & tables created!`);
-// });
-
-module.exports = User;
