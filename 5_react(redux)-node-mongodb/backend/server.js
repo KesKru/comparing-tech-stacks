@@ -2,11 +2,12 @@
 
 const express = require('express'); // include express module
 const bodyParser = require('body-parser'); // parsing incoming express
+const passport = require('passport');
 const cors = require('cors');
 const app = express(); // create an express instance
 
 // Include routes
-const usersRouter = require('./routes/users');
+const routes = require('./routes/index');
 
 //-----------------------Config-----------------------//
 //// Middleware
@@ -16,14 +17,14 @@ app.use(cors());
 
 //// Database
 // Requiring file with no exports in it,- will run the whole file, like a big function.
-require('./config/dbConfig'); // load and run db config
+require('./config/databaseConfig'); // load and run db config
+require('./config/passportConfig'); // load passport config
+app.use(passport.initialize());
 
 //-----------------------Routes-----------------------//
 
-app.get('/', (req, res) => res.send('Hello World!'));
-
 // Use routes
-app.use('/users', usersRouter);
+app.use(routes);
 
 //-----------------------Start server-----------------------//
 

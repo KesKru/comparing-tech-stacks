@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     }
   });
+  User.associate = function(models) {
+    User.hasMany(models.Post);
+    User.hasOne(models.Profile);
+  };
 
   User.prototype.hashPassword = function() {
     return bcrypt.hash(this.password, 10);

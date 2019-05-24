@@ -7,39 +7,26 @@ const errors = {};
 //-----------------------Controlers-----------------------//
 module.exports = {
   getUsers: (req, res) => {
-    md.User.findAll({
-      attributes: ['name', 'email', 'id'],
-      include: [
-        {
-          attributes: ['title', 'body'],
-          model: md.Post
-        }
-      ]
-    }).then((data) => {
-      res.json(data);
-    });
+    md.User.find({})
+      .select({ date: 0 })
+      .populate()
+      .exec()
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 
   getUser: (req, res) => {
-    md.User.findByPk(req.params.id, {
-      attributes: ['name', 'email', 'id'],
-      include: [
-        {
-          attributes: ['title', 'body'],
-          model: md.Post
-        },
-        {
-          attributes: ['field1', 'field2', 'field3'],
-          model: md.Profile
-        }
-      ]
-    }).then((data) => {
+    md.User.findById(req.params.id).then((data) => {
       res.json(data);
     });
   },
 
   createUser: (req, res) => {
-    newUser = md.User.build({
+    const newUser = new md.User({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password
@@ -63,24 +50,19 @@ module.exports = {
       email: req.body.email,
       password: req.body.password
     };
-    md.User.update(userUpdate, {
-      returning: true,
-      where: { id: req.params.id }
-    })
-      .then(([updatedRows, [updatedUser]]) => {
-        res.json(updatedUser);
+    md.User.findOneAndUpdate({ _id: req.params.id }, userUpdate)
+      .then((data) => {
+        res.json(data);
       })
       .catch((err) => {
-        res.send(err);
+        console.log(err);
       });
   },
 
   deleteUser: (req, res) => {
-    md.User.destroy({
-      where: { id: req.params.id }
-    })
-      .then((nr) => {
-        res.json({ numberOFProfilesDetroyd: nr });
+    md.User.findOneAndDelete({ _id: req.params.id })
+      .then((deletedUser) => {
+        res.json({ deletedUser: deletedUser });
       })
       .catch((err) => {
         res.send(err);

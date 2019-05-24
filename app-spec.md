@@ -43,10 +43,10 @@ Database depends on the stack. Regardles of the database used it will have folow
 ```js
 {
   _id: /* db-generated */,
-  followers:[/* array of Fallower database-IDs */],
-  following:[/* array of acounts you fallow database-IDs */],
   name: String,
-  email: String
+  email: String,
+  followers:[/* array of Fallower database-IDs */],
+  following:[/* array of acounts you fallow database-IDs */]
 }
 ```
 
@@ -56,10 +56,10 @@ Database depends on the stack. Regardles of the database used it will have folow
 {
   _id: /*Posts db-generated */,
   userId: /* Post authors database-ID */,
-  commenters: [/* array of acounts who commented database-IDs */],
-  comments: [/* array Posts comments database-IDs */],
   title: String,
-  body: String
+  body: String,
+  commenters: [/* array of acounts who commented database-IDs */],
+  comments: [/* array Posts comments database-IDs */]
 }
 ```
 

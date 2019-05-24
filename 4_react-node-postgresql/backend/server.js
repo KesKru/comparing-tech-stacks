@@ -1,18 +1,12 @@
 //-----------------------Modules-----------------------//
-
 const express = require('express'); // include express module
 const bodyParser = require('body-parser'); // parsing incoming express
-const cookieParser = require('cookie-parser'); // parsing incoming express
-const sequelize = require('sequelize');
-const session = require('express-session');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const passport = require('passport'); // parsing incoming express
 const cors = require('cors');
 const app = express(); // create an express instance
 
 // Include routes
-const usersRouter = require('./routes/users');
-const postsRouter = require('./routes/posts');
+const routes = require('./routes/index');
 
 //-----------------------Config-----------------------//
 //// Database
@@ -30,16 +24,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //-----------------------Routes-----------------------//
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-// Use routes
-app.use(usersRouter);
-app.use(postsRouter);
+app.use(routes);
 
 //-----------------------Start server-----------------------//
-
-const port = process.env.PORT || 5002;
+const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Example app listening on port ${port}`));

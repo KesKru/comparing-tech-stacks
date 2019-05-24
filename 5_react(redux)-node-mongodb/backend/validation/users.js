@@ -6,7 +6,7 @@ const { body, validationResult } = require('express-validator/check');
 // For aditional validation methots loook at validator js documentation.
 // This get pased into a route handler as a middleware
 
-module.exports.validateNewUser = [
+module.exports.validateInputs = [
   body('name')
     .exists()
     .withMessage('name field does not exist')

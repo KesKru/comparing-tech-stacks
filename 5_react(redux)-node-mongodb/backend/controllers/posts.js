@@ -6,34 +6,23 @@ const errors = {};
 //-----------------------Controlers-----------------------//
 module.exports = {
   getPosts: (req, res) => {
-    res.send('getPostAll route');
+    res.send('getPosts route');
   },
 
   getPost: (req, res) => {
     res.send('getPost route');
-    // md.User.findAll({
-    //   attributes: ['name', 'email', 'id'],
-    //   include: [
-    //     {
-    //       attributes: ['title', 'body', 'UserId'],
-    //       model: md.Post
-    //     }
-    //   ]
-    // }).then((data) => {
-    //   res.json(data);
-    // });
   },
 
   createPost: (req, res) => {
-    newPost = md.Post.build({
-      title: req.body.title,
-      body: req.body.body,
-      UserId: req.params.id
+    const newPost = new md.Post({
+      field1: req.body.field1,
+      field2: req.body.field2,
+      field3: req.body.field3
     });
     newPost
       .save()
-      .then((post) => {
-        res.json({ post: post });
+      .then((Post) => {
+        res.json({ Post: Post });
       })
       .catch((err) => {
         res.send(err);

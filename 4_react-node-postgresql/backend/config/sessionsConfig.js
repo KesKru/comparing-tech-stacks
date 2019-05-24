@@ -1,9 +1,9 @@
 const session = require('express-session');
-const db = require('./databaseConfig'); // load and run db config
+const sequelize = require('./databaseConfig'); // load and run db config
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const myStore = new SequelizeStore({
-  db: db, // specify db to use
+  db: sequelize, // specify db to use
   checkExpirationInterval: 60 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
   expiration: 24 * 60 * 60 * 1000 // The maximum age (in milliseconds) of a valid session.
 });
