@@ -7,9 +7,9 @@ const errors = {};
 //-----------------------Controlers-----------------------//
 module.exports = {
   getUsers: (req, res) => {
-    md.User.find({})
+    md.User.find()
       .select({ date: 0 })
-      .populate()
+      .populate('profile')
       .exec()
       .then((data) => {
         res.json(data);

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
+const md = require('../models/index');
 
 // Create Schema
 const UserSchema = new Schema({
@@ -17,11 +18,10 @@ const UserSchema = new Schema({
     required: true
   },
   profile: {
-    type: { type: Schema.Types.ObjectId, ref: 'Profile' }
+    type: Schema.Types.ObjectId,
+    ref: 'Profile'
   },
-  posts: {
-    type: [{ type: Schema.Types.ObjectId, ref: 'Post' }]
-  },
+  posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   date: {
     type: Date,
     default: Date.now

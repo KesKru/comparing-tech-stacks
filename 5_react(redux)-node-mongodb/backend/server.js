@@ -10,10 +10,10 @@ const app = express(); // create an express instance
 const routes = require('./routes/index');
 
 //-----------------------Config-----------------------//
-//// Middleware
+//// App config
 app.use(bodyParser.urlencoded({ extended: false })); // parse form data
 app.use(bodyParser.json()); // parse json data
-app.use(cors());
+app.use(cors()); // Alow Cross-origin resource sharing
 
 //// Database
 // Requiring file with no exports in it,- will run the whole file, like a big function.

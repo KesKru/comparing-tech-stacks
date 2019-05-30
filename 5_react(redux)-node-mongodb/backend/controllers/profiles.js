@@ -19,10 +19,21 @@ module.exports = {
       field2: req.body.field2,
       field3: req.body.field3
     });
+
     newProfile
       .save()
-      .then((Profile) => {
-        res.json({ Profile: Profile });
+      .then((profile) => {
+        md.User.findById(req.params.id).then((user) => {
+          user.profile = profile;
+          user.save();
+          res.json({ Profile: profile });
+        });
+        // md.User.findOneAndUpdate(
+        //   { _id: req.params.id },
+        //   { profile: profile._id }
+        // ).then((user) => {
+        //   res.send(user);
+        // });
       })
       .catch((err) => {
         res.send(err);
